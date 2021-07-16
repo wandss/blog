@@ -14,21 +14,19 @@ services:
      - "8000:8000"
     restart: unless-stopped
     #depends_on:
-    # - todolistdb
+    # - blogappdb
 
-  #todolistdb:
+  #blogappdb:
   #  image: postgres
-  #  container_name: todolistdb
+  #  container_name: blogappdb
   #  environment:
   #    - POSTGRES_PASSWORD=102030
   #    - POSTGRES_USER=wand
   #    - POSTGRES_DB=todolist
   #  volumes:
-  #    - todolist-vol:/var/lib/postgresql/data
+  #    - blogapp-vol:/var/lib/postgresql/data
   #  ports:
   #    - "5432:5432"
 
   #volumes:
-  #  todolist-vol:
-
-
+  #  blogapp-vol:
