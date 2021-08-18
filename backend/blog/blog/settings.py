@@ -89,7 +89,7 @@ DATABASES = {
             'ENGINE': 'django.db.backends.{}'.format(
                 os.getenv('DATABASE_ENGINE', 'postgresql')
             ),
-            'NAME': os.getenv('POSTGRESQL_DATABASE', 'db.sqlite3' ),
+            'NAME': os.getenv('POSTGRESQL_DATABASE', 'blog' ),
             'USER': os.getenv('POSTGRESQL_USER', 'wand'),
             'PASSWORD': os.getenv('POSTGRESQL_PASSWORD', '102030'),
             'HOST': os.getenv('DATABASE_SERVICE_NAME', 'postgresql'),
