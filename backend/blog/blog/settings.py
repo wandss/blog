@@ -91,7 +91,7 @@ DATABASES = {
             ),
             'NAME': os.getenv('POSTGRESQL_DATABASE', 'db.sqlite3' ),
             'USER': os.getenv('POSTGRESQL_USER', 'wand'),
-            'PASSWORD': os.getenv('POSTGRESQL_PASSWORD', 'youshouldchangethis'),
+            'PASSWORD': os.getenv('POSTGRESQL_PASSWORD', '102030'),
             'HOST': os.getenv('DATABASE_SERVICE_NAME', 'postgresql'),
             'PORT': os.getenv('DATABASE_PORT', 5432),
             'OPTIONS': json.loads(
