@@ -6,7 +6,7 @@ ENV PORT=8000
 COPY ./requirements.txt /requirements.txt
 COPY ./blog /blog
 COPY ./scripts /scripts
-RUN pip install -r /requirements.txt
+RUN pip install --no-cache-dir -r /requirements.txt
 RUN groupadd -rf -g 1001 django && \
     useradd -r -M -g 1001 -u 1001 django && \
     chown -R django:django /scripts && \

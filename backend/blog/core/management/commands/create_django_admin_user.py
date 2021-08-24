@@ -46,8 +46,9 @@ class Command(BaseCommand):
             except Exception as e:
                 raise CommandError(e)
 
-            self.stdout.write(self.style.SUCCESS(
-                                f"Created admin user: {options['username']}"))
+            self.stdout.write(
+                    self.style.SUCCESS(
+                        f"\nCreated admin user:\n\t\t{options['username']}\n\n"))
 
 
 
