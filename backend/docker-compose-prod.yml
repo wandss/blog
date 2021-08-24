@@ -1,0 +1,42 @@
+version: "2.3"
+services:
+
+  blogapp:
+    build: .
+    container_name: blogapp
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0:8000"
+    volumes:
+     - ./blog:/blog
+    ports:
+     - "8000:8000"
+    restart: unless-stopped
+    environment:
+      - DATABASE_ENGINE=postgresql_psycopg2
+      - DATABASE_NAME=blog
+      - DATABASE_PASSWORD=someRandomPassword
+      - DATABASE_HOST=blogappdb
+      - DATABASE_PORT=5432
+      - DATABASE_USER=blogapp
+      - DJANGO_SECRET_KEY=SomerandomKey
+      - DJANGO_DEBUG=True
+      - DJANGO_ALLOWED_HOSTS=*
+    depends_on:
+     - blogappdb
+
+  blogappdb:
+    image: postgres
+    container_name: blogappdb
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_DB=${DATABASE_NAME}
+    volumes:
+      - blogapp-vol:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  blogapp-vol:

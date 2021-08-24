@@ -1,0 +1,46 @@
+version: "2.3"
+services:
+
+  blogapp:
+    build: .
+    container_name: blogapp
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py create_django_admin_user &&
+             python manage.py runserver 0.0.0:8000"
+    volumes:
+     - ./blog:/blog
+    ports:
+     - "8000:8000"
+    restart: unless-stopped
+    environment:
+      - DATABASE_ENGINE=postgresql_psycopg2
+      - DATABASE_NAME=blog
+      - DATABASE_PASSWORD=someRandomPassword
+      - DATABASE_HOST=blogappdb
+      - DATABASE_PORT=5432
+      - DATABASE_USER=blogapp
+      - DJANGO_SECRET_KEY=SomerandomKey
+      - DJANGO_DEBUG=True
+      - DJANGO_ALLOWED_HOSTS=*
+      - DJANGO_ADMIN_NAME=djangoadmin
+      - DJANGO_ADMIN_EMAIL=me@project.com
+      - DJANGO_ADMIN_PASSWORD=djangoadmin
+    depends_on:
+     - blogappdb
+
+  blogappdb:
+    image: postgres
+    container_name: blogappdb
+    environment:
+      - POSTGRES_PASSWORD=someRandomPassword
+      - POSTGRES_USER=blogapp
+      - POSTGRES_DB=blog
+    volumes:
+      - blogapp-vol:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  blogapp-vol:

@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Menu, AboutPage, LandingPage
 
-# Register your models here.
+admin.site.register(Menu)
+admin.site.register(AboutPage)
+admin.site.register(LandingPage)
+
+

@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+import os
+import json
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,13 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4wzuox0i7w0b(^#1s1u37&z=^3#@x#sz&$j_)b38@@2#31zne6'
+# SECRET_KEY = 'django-insecure-4wzuox0i7w0b(^#1s1u37&z=^3#@x#sz&$j_)b38@@2#31zne6'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', False)
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1').split(',')
 
 # Application definition
 
@@ -76,11 +79,27 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'default': {
+            'ENGINE': 'django.db.backends.{}'.format(
+                os.getenv('DATABASE_ENGINE', 'sqlite3')
+            ),
+            'NAME': os.getenv('DATABASE_NAME', 'db.sqlite3' ),
+            'USER': os.getenv('DATBASE_USER', 'blogapp'),
+            'PASSWORD': os.getenv('DATABASE_PASSWORD', 'youshouldchangethis'),
+            'HOST': os.getenv('DATABASE_HOST', 'ADDTHEDBCONTAINERNAME'),
+            'PORT': os.getenv('DATABASE_PORT', 5432),
+            'OPTIONS': json.loads(
+                os.getenv('DATABASE_OPTIONS', '{}')
+            ),
+        }
 }
 
 
