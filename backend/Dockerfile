@@ -15,5 +15,5 @@ RUN groupadd -rf -g 1001 django && \
 USER django
 WORKDIR /blog
 EXPOSE ${PORT}
-CMD ["python", "manage.py", "runserver", "0.0.0.0:${PORT}"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 #CMD ["entrypoint.sh"]
