@@ -1,5 +1,6 @@
 #FROM python:3.6.8
-FROM python:3.6.14-slim-bullseye
+#FROM python:3.6.14-slim-bullseye
+FROM python:3.8.12-slim-bullseye
 ENV PYTHONUNBUFFERED=1
 ENV PATH="/scripts:${PATH}"
 ENV PORT=8000
@@ -7,8 +8,8 @@ COPY ./requirements.txt /requirements.txt
 COPY ./blog /blog
 COPY ./scripts /scripts
 RUN pip install --no-cache-dir -r /requirements.txt
-RUN groupadd -rf -g 1001 django && \
-    useradd -r -M -g 1001 -u 1001 django && \
+RUN groupadd -rf -g 1000 django && \
+    useradd -r -M -g 1000 -u 1000 django && \
     chown -R django:django /scripts && \
     chown -R django:django /blog && \
     chmod a+x /scripts/entrypoint.sh

@@ -17,19 +17,19 @@ services:
     restart: unless-stopped
     env_file:
       - .env.dev
-    #environment:
-    #  - DATABASE_ENGINE=postgresql_psycopg2
-    #  - DATABASE_NAME=blog
-    #  - DATABASE_PASSWORD=someRandomPassword
-    #  - DATABASE_HOST=blogappdb
-    #  - DATABASE_PORT=5432
-    #  - DATABASE_USER=blogapp
-    #  - DJANGO_SECRET_KEY=SomerandomKey
-    #  - DJANGO_DEBUG=True
-    #  - DJANGO_ALLOWED_HOSTS=*
-    #  - DJANGO_ADMIN_NAME=djangoadmin
-    #  - DJANGO_ADMIN_EMAIL=me@project.com
-    #  - DJANGO_ADMIN_PASSWORD=djangoadmin
+    environment:
+       - DATABASE_ENGINE=postgresql_psycopg2
+       - DATABASE_NAME=blog
+       - DATABASE_PASSWORD=someRandomPassword
+       - DATABASE_HOST=blogappdb
+       - DATABASE_PORT=5432
+       - DATABASE_USER=blogapp
+       - DJANGO_SECRET_KEY=SomerandomKey
+       - DJANGO_DEBUG=True
+       - DJANGO_ALLOWED_HOSTS=*
+       - DJANGO_ADMIN_NAME=djangoadmin
+       - DJANGO_ADMIN_EMAIL=me@project.com
+       - DJANGO_ADMIN_PASSWORD=djangoadmin
     depends_on:
      - blogappdb
 
@@ -38,14 +38,14 @@ services:
     container_name: blogappdb
     env_file:
       - .env.dev
-    #environment:
-    #  - POSTGRES_PASSWORD=someRandomPassword
-    #  - POSTGRES_USER=blogapp
-    #  - POSTGRES_DB=blog
+    environment:
+      - POSTGRES_PASSWORD=someRandomPassword
+      - POSTGRES_USER=blogapp
+      - POSTGRES_DB=blog
     volumes:
       - blogapp-vol:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-
+        
 volumes:
   blogapp-vol:
