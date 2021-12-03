@@ -33,6 +33,18 @@ services:
     depends_on:
      - blogappdb
 
+  blogappfront:
+    build: ./frontend
+    container_name: blogappfront
+    command: yarn serve
+    volumes:
+     - ./frontend/blog:/blog
+    ports:
+     - "8001:8080"
+    restart: unless-stopped
+    depends_on:
+     - blogappdb
+
   blogappdb:
     image: postgres
     container_name: blogappdb

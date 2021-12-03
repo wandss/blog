@@ -1,0 +1,15 @@
+version: "2.3"
+services:
+
+  blogappfront:
+    build: ./frontend
+    container_name: blogappfront
+    command: yarn serve
+    volumes:
+     - ./frontend/blog:/blog
+    ports:
+     - "8001:8080"
+    restart: unless-stopped
+        
+volumes:
+  blogapp-vol:
