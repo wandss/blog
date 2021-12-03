@@ -1,6 +1,5 @@
 <template>
 <div id="card">
-  <div v-html="test"></div>
   <b-card title="Title" sub-title="Sub title" bg-variant="light">
     <b-card-text >
       Add here all the main texts and blog posts this will be redered
@@ -74,7 +73,6 @@
 </div>
 </template>
 <script>
-import { marked } from 'marked'
 
 export default {
   name: 'BlogPost',
@@ -83,13 +81,6 @@ export default {
       markdowntest: "# Some text",
     };
   },
-  computed: {
-    test() {
-      //return marked(this.markdowntest)
-      return marked.parse("## computed is fine");
-    }
-  }
-
 }
 </script>
 <style scoped>

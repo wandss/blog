@@ -9,6 +9,7 @@
           <b-nav-item href="#">Home</b-nav-item>
           <b-nav-item href="#">Old Posts</b-nav-item>
           <b-nav-item href="#" disabled>About</b-nav-item>
+          <b-nav-item href="#" @click="$router.push('/post')">New Post</b-nav-item>
         </b-navbar-nav>
   
         <!-- Right aligned nav items -->
