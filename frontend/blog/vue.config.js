@@ -6,7 +6,7 @@ module.exports = {
   //indexPath: path.resolve(__dirname, process.env.VUE_APP_INDEX_PATH),
   //publicPath: process.env.VUE_APP_PUBLIC_PATH
   devServer: {
-    "proxy": "http://0.0.0.0:8080",
+    "proxy": "http://0.0.0.0:8000",
     "disableHostCheck": true
   }
 }

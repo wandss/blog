@@ -3,6 +3,7 @@
     <Navbar />
     <div id="mainApp">
       <b-container fluid class="bv-example-row">
+        {{ $store.state.posts }}
         <router-view></router-view>
       </b-container>
     </div>
@@ -17,6 +18,9 @@ export default {
   components: {
     Navbar,
   },
+  mounted() {
+    this.$store.dispatch('fetchPosts')
+  }
 }
 </script>
 
