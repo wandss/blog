@@ -32,7 +32,7 @@ class GetAllPosts(TestCase):
 
     def test_gell_all_posts(self):
         response = client.get(reverse('get_create_posts'))
-        posts = Post.objects.all()
+        posts = Post.objects.all().order_by('-create_date')
         serializer = PostSerializer(posts, many=True )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(serializer.data, response.data)

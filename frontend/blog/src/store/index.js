@@ -85,6 +85,14 @@ export default new Vuex.Store({
             console.log(error.response)
         })
     },
+    updateBlogPost(context, payload) {
+      console.log(payload.post_id)
+      const postId = payload.post_id  
+
+      // axios.put("URL"+postID,)
+      // fetch blog posts
+
+    }
   },
   modules: {
   }

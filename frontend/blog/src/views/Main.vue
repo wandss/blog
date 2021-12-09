@@ -2,7 +2,7 @@
  <b-row align-h="start">
    <b-col>
      <div v-for="post in $store.state.posts">
-       <BlogPost :content="mdToHtml(post.text)" :html="true" />
+       <BlogPost :content="mdToHtml(post.text)" :html="true" :blogPost="post"/>
      </div>
    </b-col>
  </b-row>

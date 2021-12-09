@@ -1,5 +1,6 @@
 <template>
 <div id="card">
+  {{blogPost}}
   <b-card bg-variant="light" v-if="html">
     <b-card-text v-html="content">
       {{ content }}
@@ -18,6 +19,17 @@
     <b-link href="#" class="card-link">Another link</b-link>
     <b-link href="#" class="card-link">Tags here</b-link>
   </b-card>
+  <div>
+    <b-button pill variant="success" size="sm" 
+      v-if="blogPost.publish_date !== null"
+      @click="handlePublish">
+      Published
+     </b-button>
+    <b-button pill variant="outline-success" size="sm" v-else
+      @click="handlePublish">
+      Publish
+    </b-button>
+  </div>
 </div>
 </template>
 <script>
@@ -30,6 +42,10 @@ export default {
     };
   },
   props: {
+    blogPost: {
+      default: () => {},
+      type: Object
+    },
     content: {
       default: "Some default Text",
       type: String
@@ -46,6 +62,24 @@ export default {
       type: String,
       default: "Subtitle"
     },
+  },
+  methods: {
+    handlePublish() {
+      let blogPost = {...this.blogPost}
+      if (this.blogPost.publish_date !== null) {
+        this.$set(blogPost, 'publish_date', null)
+      }
+      else {
+        this.$set(blogPost, 'publish_date', new Date())
+        //this.$set(blogPost, 'publish_date', new Date().toJSON())
+      }
+      // TOO creates backed for handling updates
+      console.log(blogPost.publish_date)
+      this.$store.dispatch('updateBlogPost', blogPost)
+
+
+
+    }
   }
 }
 </script>
