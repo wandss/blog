@@ -3,7 +3,7 @@
     <b-col cols="5">
       <b-form-textarea
         id="textarea"
-        v-model="blogPost"
+        v-model="text"
         placeholder="Use Markdown..."
         rows="3"
         max-rows="6"
@@ -16,21 +16,23 @@
   </b-row>
 </template>
 <script>
-import { marked } from 'marked'
 import BlogPost from '@/components/BlogPost'
 
 export default {
   name: 'CreateEditPost',
-  components: {BlogPost}, 
-  data() {
-    return {
-      blogPost: '',
-    }
-  },
+  components: { BlogPost }, 
   computed: {
+    text: {
+      get() {
+        return this.$store.state.newPost
+      },
+      set (value) {
+        this.$store.commit('setNewPost', value);
+      }
+    },
     textPreview() {
-      return marked.parse(this.blogPost);
-    }
-  }
+      return this.$store.getters.mdToHtml
+    },
+  },
 }
 </script>

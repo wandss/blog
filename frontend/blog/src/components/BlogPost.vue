@@ -6,7 +6,7 @@
     </b-card-text>
     </b-card-text>
     <a href="#" class="card-link">Card link</a>
-s   <b-link href="#" class="card-link">Another link</b-link>
+    <b-link href="#" class="card-link">Another link</b-link>
     <b-link href="#" class="card-link">Tags here</b-link>
   </b-card>
   <b-card :title="title" :sub-title="subtitle" bg-variant="light" v-else >
