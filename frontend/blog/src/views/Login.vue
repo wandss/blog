@@ -45,7 +45,6 @@ export default {
     onSubmit(event){
       this.$store.dispatch("login", this.form)
       Object.assign(this.form, {username: '', password: ''})
-      //Dispatch to get token
     },
   }
 }

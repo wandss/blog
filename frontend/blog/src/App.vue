@@ -18,7 +18,7 @@ export default {
     Navbar,
   },
   mounted() {
-    this.$store.dispatch('fetchPosts')
+    this.$store.dispatch('fetchPublishedPosts')
   }
 }
 </script>

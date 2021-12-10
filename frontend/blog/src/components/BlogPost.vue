@@ -1,6 +1,5 @@
 <template>
 <div id="card">
-  {{blogPost}}
   <b-card bg-variant="light" v-if="html">
     <b-card-text v-html="content">
       {{ content }}
@@ -19,7 +18,7 @@
     <b-link href="#" class="card-link">Another link</b-link>
     <b-link href="#" class="card-link">Tags here</b-link>
   </b-card>
-  <div>
+  <div v-if="Object.keys(blogPost).length !== 0 && $store.state.token !== null">
     <b-button pill variant="success" size="sm" 
       v-if="blogPost.publish_date !== null"
       @click="handlePublish">
@@ -29,6 +28,10 @@
       @click="handlePublish">
       Publish
     </b-button>
+    <b-button pill variant="outline-warning" size="sm" 
+      @click="editPost">
+      Edit
+    </b-button>
   </div>
 </div>
 </template>
@@ -36,14 +39,11 @@
 
 export default {
   name: 'BlogPost',
-  data(){
-    return {
-      sample: "Add here all the main texts and blog posts this will be redered by iterating over blog posts. It is the main view.",
-    };
-  },
   props: {
     blogPost: {
-      default: () => {},
+      default: function (value){
+        return {}
+      }, 
       type: Object
     },
     content: {
@@ -71,14 +71,18 @@ export default {
       }
       else {
         this.$set(blogPost, 'publish_date', new Date())
-        //this.$set(blogPost, 'publish_date', new Date().toJSON())
       }
-      // TOO creates backed for handling updates
-      console.log(blogPost.publish_date)
       this.$store.dispatch('updateBlogPost', blogPost)
-
-
-
+    },
+    editPost() {
+      this.$store.commit('setEditPost', this.blogPost)
+      this.$store.commit('setNewPost', this.blogPost.text)
+      if (this.$store.state.token === null) {
+        this.$router.push('/login')
+      }
+      else {
+        this.$router.push('/post')
+      }
     }
   }
 }

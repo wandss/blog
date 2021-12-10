@@ -17,16 +17,6 @@ export default {
     if (this.$store.state.token === null) {
       this.$router.push('/') }
   },
-  data() {
-    return {
-      post: {
-        title: '',
-        text: '',
-        tag: '',
-        publishDate: '',
-      },
-    }
-  },
   methods: {
     savePost() {
       const blogPost = this.$store.state.newPost.split('\n')
@@ -38,12 +28,20 @@ export default {
         title: title,
         text: text,
         tag: '',
-        publishDate: '',
+        publish_date: null,
         author: this.$store.getters.getUserid
       }
-      this.$store.dispatch('createBlogPost', blogPostData)
+      if (Object.keys(this.$store.state.editPost).length === 0) {
+        this.$store.dispatch('createBlogPost', blogPostData)
+      }
+      else {
+        const editPost = Object.assign(this.$store.state.editPost,
+                                       blogPostData)
+        this.$store.dispatch('updateBlogPost', editPost)
+      }
       this.$store.commit('setNewPost', '')
-      // create object and dispatch data to API
+      this.$store.commit('setEditPost', {})
+      this.$router.go(-1)
     }
   }
 }

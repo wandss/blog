@@ -12,6 +12,7 @@ export default new Vuex.Store({
     newPostFields: {},
     token: null,
     refreshToken: null,
+    editPost: {},
   },
   mutations: {
     setPosts(state, payload) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     setRefreshToken(state, payload) {
       state.refreshToken = payload
+    },
+    setEditPost(state, payload) {
+      state.editPost = payload
     },
   },
   getters: {
@@ -54,7 +58,17 @@ export default new Vuex.Store({
   },
   actions: {
     fetchPosts(context) {
-       axios.get('http://billie:8000/api/v1/blog/posts/')
+       //TODO: pass the ordering Query string, dynamically through parameters
+       axios.get('http://billie:8000/api/v1/blog/posts/?ordering=-create_date')
+        .then(resp => {
+            console.log('fetching new posts')
+            context.commit('setPosts', resp.data)
+        })
+       .catch(error=>console.log(error))
+    },
+    fetchPublishedPosts(context) {
+       //TODO: pass the ordering Query string, dynamically through parameters
+       axios.get('http://billie:8000/api/v1/blog/posts/published/?ordering=-create_date')
         .then(resp => {
             console.log('fetching new posts')
             context.commit('setPosts', resp.data)
@@ -75,6 +89,7 @@ export default new Vuex.Store({
             axios.defaults.headers.common['Authorization'] = 'Bearer '+resp.data.access
         })
         .catch(error=>console.log(error))
+        context.dispatch("fetchPosts")
     },
     createBlogPost(context, payload) {
         axios.post("http://billie:8000/api/v1/blog/posts/", payload)
@@ -86,12 +101,13 @@ export default new Vuex.Store({
         })
     },
     updateBlogPost(context, payload) {
-      console.log(payload.post_id)
-      const postId = payload.post_id  
+      const postID = payload.post_id  
 
-      // axios.put("URL"+postID,)
-      // fetch blog posts
-
+        axios.put("http://billie:8000/api/v1/blog/posts/"+postID, payload)
+        .then(resp=>{
+            context.dispatch('fetchPosts')
+        })
+        .catch(error=>console.log(error.response))
     }
   },
   modules: {

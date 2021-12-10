@@ -8,7 +8,14 @@
           <b-nav-item href="#" @click="$router.push('/')">
             Home
           </b-nav-item>
-          <b-nav-item href="#" @click="$router.push('/login')">Login</b-nav-item>
+          <b-nav-item href="#" v-if="$store.state.token === null"
+           @click="$router.push('/login')">
+            Login
+          </b-nav-item>
+          <b-nav-item href="#" v-if="$store.state.token !== null"
+            @click="$store.commit('setToken', null)">
+            Logout
+          </b-nav-item>
           <b-nav-item href="#">Old Posts</b-nav-item>
           <b-nav-item href="#" disabled>About</b-nav-item>
           <b-nav-item href="#" :disabled="this.$store.state.token === null"
@@ -26,6 +33,7 @@
 <script>
 export default {
   name: 'NavBar',
+  //TODO: create method for loggin out
 }
 </script>
 <style scoped>

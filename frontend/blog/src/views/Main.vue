@@ -1,11 +1,23 @@
 <template>
- <b-row align-h="start">
-   <b-col>
-     <div v-for="post in $store.state.posts">
-       <BlogPost :content="mdToHtml(post.text)" :html="true" :blogPost="post"/>
-     </div>
-   </b-col>
- </b-row>
+<div>
+  <b-row align-h="start" v-if="$store.state.token !== null">
+    <b-col>
+      <b-button size="sm" @click="$store.dispatch('fetchPosts')">
+        Show All Posts
+      </b-button>
+      <b-button size="sm" @click="$store.dispatch('fetchPublishedPosts')">
+        Show Published only
+      </b-button>
+    </b-col>
+  </b-row>
+  <b-row align-h="start">
+    <b-col>
+      <div v-for="post in $store.state.posts">
+        <BlogPost :content="mdToHtml(post.text)" :html="true" :blogPost="post"/>
+      </div>
+    </b-col>
+  </b-row>
+ </div>
 </template>
 
 <script>
