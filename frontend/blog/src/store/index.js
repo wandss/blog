@@ -33,6 +33,10 @@ export default new Vuex.Store({
     setEditPost(state, payload) {
       state.editPost = payload
     },
+    setPublishedPosts(state, payload) {
+      const publishedPosts = state.posts.filter(item=>item.publish_date !== null)
+      state.posts = publishedPosts
+    }
   },
   getters: {
     getUserid(state) {

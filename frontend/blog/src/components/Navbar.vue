@@ -13,7 +13,7 @@
             Login
           </b-nav-item>
           <b-nav-item href="#" v-if="$store.state.token !== null"
-            @click="$store.commit('setToken', null)">
+            @click="logout" >
             Logout
           </b-nav-item>
           <b-nav-item href="#">Old Posts</b-nav-item>
@@ -34,6 +34,13 @@
 export default {
   name: 'NavBar',
   //TODO: create method for loggin out
+  methods: {
+    logout() {
+      this.$store.commit('setToken', null)
+      this.$store.commit('setPublishedPosts', null)
+
+    }
+  },
 }
 </script>
 <style scoped>

@@ -1,7 +1,12 @@
 <template>
   <div>
     <CreateEditPost />
-    <b-button variant="outline-primary" @click="savePost" >Save</b-button>
+    <b-button pill :variant="publishDate===null?'outline-success':'success'" 
+      size="sm"
+      @click="publishPost" >
+        Publish
+     </b-button>
+     <b-button variant="outline-primary" @click="savePost" >Save</b-button>
   </div>
 </template>
 <script>
@@ -12,12 +17,29 @@ export default {
   components: {
     CreateEditPost,
   },
+  data () {
+    return {
+      publishDate: null,
+    }
+  },
   mounted() {
     this.$store.dispatch('fetchPostStructure')
     if (this.$store.state.token === null) {
-      this.$router.push('/') }
+      this.$router.push('/') 
+    }
+    if (Object.keys(this.$store.state.editPost).length !== 0) {
+      this.publishDate = this.$store.state.editPost.publish_date
+    }
   },
   methods: {
+    publishPost() {
+      if (this.publishDate === null) {
+        this.publishDate = new Date()
+      }
+      else {
+        this.publishDate = null
+      }
+    },
     savePost() {
       const blogPost = this.$store.state.newPost.split('\n')
       const stored_title = blogPost.shift()
@@ -28,7 +50,7 @@ export default {
         title: title,
         text: text,
         tag: '',
-        publish_date: null,
+        publish_date: this.publishDate, 
         author: this.$store.getters.getUserid
       }
       if (Object.keys(this.$store.state.editPost).length === 0) {
