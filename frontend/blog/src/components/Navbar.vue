@@ -19,7 +19,7 @@
           <b-nav-item href="#">Old Posts</b-nav-item>
           <b-nav-item href="#" disabled>About</b-nav-item>
           <b-nav-item href="#" :disabled="this.$store.state.token === null"
-            @click="$router.push('/post')">
+            @click="newPost">
             New Post
           </b-nav-item>
         </b-navbar-nav>
@@ -38,7 +38,11 @@ export default {
     logout() {
       this.$store.commit('setToken', null)
       this.$store.commit('setPublishedPosts', null)
-
+    },
+    newPost() {
+      this.$store.commit('setEditPost', {})
+      this.$store.commit('setNewPost', '')
+      this.$router.push('/post')
     }
   },
 }

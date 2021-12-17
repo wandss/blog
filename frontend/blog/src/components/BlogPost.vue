@@ -18,20 +18,19 @@
     <b-link href="#" class="card-link">Another link</b-link>
     <b-link href="#" class="card-link">Tags here</b-link>
   </b-card>
-  <div v-if="Object.keys(blogPost).length !== 0 && $store.state.token !== null">
-    <b-button pill variant="success" size="sm" 
-      v-if="blogPost.publish_date !== null"
-      @click="handlePublish">
-      Published
-     </b-button>
-    <b-button pill variant="outline-success" size="sm" v-else
-      @click="handlePublish">
-      Publish
-    </b-button>
-    <b-button pill variant="outline-warning" size="sm" 
+  <div 
+    v-if="Object.keys(blogPost).length !== 0 && $store.state.token !== null"
+    class="mt-2">
+     <b-button pill id="publish"
+     :variant="blogPost.publish_date!==null?'success':'outline-success'" 
+       size="sm" 
+       @click="handlePublish" >
+       {{blogPost.publish_date !== null? 'Published':'Publish'}}
+      </b-button>
+     <b-button pill variant="outline-warning" size="sm" 
       @click="editPost">
-      Edit
-    </b-button>
+       Edit
+     </b-button>
   </div>
 </div>
 </template>
@@ -91,5 +90,8 @@ export default {
 #card {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+}
+#publish {
+  margin-right: 0.5em;
 }
 </style>

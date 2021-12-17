@@ -2,12 +2,14 @@
 <div>
   <b-row align-h="start" v-if="$store.state.token !== null">
     <b-col>
-      <b-button size="sm" @click="$store.dispatch('fetchPosts')">
-        Show All Posts
-      </b-button>
-      <b-button size="sm" @click="$store.dispatch('fetchPublishedPosts')">
-        Show Published only
-      </b-button>
+      <b-button-group>
+        <b-button size="sm" @click="$store.dispatch('fetchPosts')" >
+          Show All Posts
+        </b-button>
+        <b-button size="sm" @click="$store.dispatch('fetchPublishedPosts')">
+          Show Published only
+        </b-button>
+      </b-button-group>
     </b-col>
   </b-row>
   <b-row align-h="start">

@@ -1,12 +1,24 @@
 <template>
   <div>
-    <CreateEditPost />
-    <b-button pill :variant="publishDate===null?'outline-success':'success'" 
-      size="sm"
-      @click="publishPost" >
-        Publish
-     </b-button>
-     <b-button variant="outline-primary" @click="savePost" >Save</b-button>
+    <CreateEditPost >
+      <b-row class="mt-2">
+        <b-col>
+          <b-button pill :variant="publishDate===null?'outline-success':'success'" 
+            size="sm"
+            @click="publishPost" >
+              Publish
+           </b-button>
+        </b-col>
+      </b-row>
+      <b-row >
+        <b-col>
+          <b-button variant="outline-primary" id="save"
+            @click="savePost" >
+            Save
+          </b-button>
+        </b-col>
+      </b-row>
+    </CreateEditPost >
   </div>
 </template>
 <script>
@@ -23,7 +35,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('fetchPostStructure')
+    //this.$store.dispatch('fetchPostStructure')
     if (this.$store.state.token === null) {
       this.$router.push('/') 
     }
@@ -68,3 +80,8 @@ export default {
   }
 }
 </script>
+<style>
+#save {
+  float: right;
+}
+</style>

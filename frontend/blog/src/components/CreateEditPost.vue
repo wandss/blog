@@ -9,6 +9,7 @@
         max-rows="6"
       >
       </b-form-textarea>
+      <slot></slot>
     </b-col>
     <b-col>
       <BlogPost :content="textPreview" :html="true"/>
