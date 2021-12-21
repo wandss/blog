@@ -38,8 +38,8 @@ export default {
   data() {
     return {
       form: {
-        username: 'djangoadmin',
-        password: 'djangoadmin'
+        username: '',
+        password: ''
       },
     }
   },

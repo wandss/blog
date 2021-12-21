@@ -4,19 +4,21 @@
     <b-card-text v-html="content">
       {{ content }}
     </b-card-text>
-    </b-card-text>
+    <!-- TAGS
     <a href="#" class="card-link">Card link</a>
     <b-link href="#" class="card-link">Another link</b-link>
     <b-link href="#" class="card-link">Tags here</b-link>
+    -->
   </b-card>
   <b-card :title="title" :sub-title="subtitle" bg-variant="light" v-else >
     <b-card-text>
       {{ content }}
     </b-card-text>
-    </b-card-text>
+    <!-- Tags 
     <a href="#" class="card-link">Card link</a>
     <b-link href="#" class="card-link">Another link</b-link>
     <b-link href="#" class="card-link">Tags here</b-link>
+    -->
   </b-card>
   <div 
     v-if="Object.keys(blogPost).length !== 0 && $store.state.token !== null"
